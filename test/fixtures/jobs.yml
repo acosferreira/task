@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  description: MyString
+  estimated_date: 2013-07-25
+  effort: 1
+  recurrency: 
+  status: false
+  job_id: 1
+  type_task: 
+
+two:
+  name: MyString
+  description: MyString
+  estimated_date: 2013-07-25
+  effort: 1
+  recurrency: 
+  status: false
+  job_id: 1
+  type_task: 

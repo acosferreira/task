@@ -1,0 +1,25 @@
+<table class="table table-striped">
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Estimated date</th>
+    <th>Effort</th>
+    <th>Recurrency</th>
+    <th>Status</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+ <% @jobs.each do |job| %>
+  <tr>
+    <td><%= job.name %></td>
+    <td><%= job.description %></td>
+    <td><%= job.estimated_date %></td>
+    <td><%= job.effort %></td>
+    <td><%= job.recurrency.name if job.recurrency%></td>
+    <td><%= job.status %></td>
+    <td><%= link_to 'Edit', edit_job_path(job) %></td>
+    <td><%= link_to 'Destroy', job, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
