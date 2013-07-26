@@ -1,15 +1,21 @@
 Task::Application.routes.draw do
-   root :to => 'jobs#index'
-  resources :jobs 
-  get 'jobs/create_child'
+   #root :to => "devise/sessions#new"
+  root :to=>"jobs#index"
+  resources :jobs do 
+   collection do
+    get 'reminder_tasks'
+    #post 'another_create'
+  end
+  end
+  match 'reminder_tasks' => 'jobs#reminder_tasks'
+
 
   resources :type_tasks
 
 
   resources :recurrencies
 
-
-  devise_for :users
+  devise_for :users, path_names: {sign_in: "login", sign_out: "logout"}
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
