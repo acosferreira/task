@@ -1,6 +1,7 @@
 class TypeTasksController < ApplicationController
   # GET /type_tasks
   # GET /type_tasks.json
+  before_filter :authenticate_user!
   def index
     @type_tasks = TypeTask.all
 

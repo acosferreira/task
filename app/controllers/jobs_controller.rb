@@ -1,7 +1,10 @@
 class JobsController < ApplicationController
   # GET /jobs
   # GET /jobs.json
+  before_filter :authenticate_user!
+  
   def index
+    @recurrencies = Recurrency.all
     @jobs = Job.where(conditions_to_collection)
 
     respond_to do |format|
@@ -24,8 +27,8 @@ class JobsController < ApplicationController
   # GET /jobs/new
   # GET /jobs/new.json
   def new
-
     @job = Job.new
+    @job.user_id = current_user.id
     if params
     @job.job_id = params[:job_id] 
     @job.type_task_id = params[:type_task] 
@@ -45,6 +48,8 @@ class JobsController < ApplicationController
   # POST /jobs
   # POST /jobs.json
   def create
+    require 'pry'
+    binding.pry
     @job = Job.new(params[:job])
 
     respond_to do |format|
@@ -86,10 +91,19 @@ class JobsController < ApplicationController
     end
   end
 
+  def reminder_tasks
+    @jobs = Job.reminder_pending_tasks(current_user.id)
+     respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @jobs }
+    end
+  end
+  
   protected
   def conditions_to_collection
-    params[:status].blank? ? status = 0 : status = params[:status]
-    "job_id is null "
+    params[:status].blank? ? status = false : params[:status]=="true" ? status = true : status = false
+    params[:recurrency].blank? ? recurrency = nil : recurrency = " and recurrency_id = #{params[:recurrency]}"
+    ["job_id is null and status = ? #{recurrency} and user_id = ?", status, current_user.id]
   end
 
 end

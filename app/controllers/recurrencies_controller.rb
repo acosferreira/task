@@ -1,6 +1,8 @@
 class RecurrenciesController < ApplicationController
   # GET /recurrencies
   # GET /recurrencies.json
+  before_filter :authenticate_user!
+  
   def index
     @recurrencies = Recurrency.all
 
