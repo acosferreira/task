@@ -1,12 +1,14 @@
+
 <%= simple_form_for @job, :html => { :class => 'form-horizontal' } do |f| %>
   <%= f.input :name %>
   <%= f.input :description %>
   <%= f.input :estimated_date %>
-  <%= f.input :effort %>
-  <%= f.input :recurrency_id %>
+  <%= f.input :effort, :hint=>"The effort is calculated in days" %>
+  <%= f.association :recurrency %>
   <%= f.input :status %>
-  <%= f.input :job_id %>
-  <%= f.input :type_task_id %>
+  <%= f.association :job %>
+  <%= f.association :type_task %>
+  <%= f.input :user_id,  :as => :hidden %>
   <div class="form-actions">
     <%= f.button :submit, :class => 'btn-primary' %>
     <%= link_to t('.cancel', :default => t("helpers.links.cancel")),

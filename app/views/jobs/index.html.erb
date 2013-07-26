@@ -3,17 +3,35 @@
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
 </div>
 <ul class="nav nav-tabs">
-  <li class="active"><a href="<%=jobs_path(:status=>0)%>">ToDo</a></li>
-  <li><a href="<%=jobs_path(:status=>1)%>">Done</a></li>
+  <li class="active"><a href="<%=jobs_path(:status=>"false")%>">ToDo</a></li>
+  <li><a href="<%=jobs_path(:status=>"true")%>">Done</a></li>
+ <li class="dropdown">
+    <a class="dropdown-toggle"
+       data-toggle="dropdown"
+       href="#">
+        Recurrency
+        <b class="caret"></b>
+      </a>
+    <ul class="dropdown-menu">
+      <% @recurrencies.each do |recurrency| %>
+      <li><a href="<%=jobs_path(:recurrency=>recurrency.id)%>"><%=recurrency.name%></a></li>
+      <%end%>
+    </ul>
+  </li>
+  <li><%= link_to "To Reminder", reminder_tasks_jobs_path, :method => :get %>
+    </li>
 <table class="table table-striped">
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:name) %></th>
       <th><%= model_class.human_attribute_name(:description) %></th>
+       <th><%= model_class.human_attribute_name(:effort) %></th>
       <th><%= model_class.human_attribute_name(:estimated_date) %></th>
       <th><%= model_class.human_attribute_name(:recurrency_id) %></th>
       <th><%= model_class.human_attribute_name(:status) %></th>
       <th><%= model_class.human_attribute_name(:type_task_id) %></th>
+      <th><%= model_class.human_attribute_name(:Child?) %></th>
+      
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
@@ -22,19 +40,21 @@
       <tr>
         <td><%= link_to job.name, job_path(job) %></td>
         <td><%= job.description %></td>
+        <td><%= job.effort %></td>
         <td><%= job.estimated_date %></td>
         <td><%= job.recurrency.name if job.recurrency %></td>
-        <td><%= job.status %></td>
+        <td><%= check_box "status", job.id,{:checked=>job.status, :disabled=>true} %></td>
         <td><%= job.type_task.name if job.type_task %></td>
+        <td><%= check_box "child", job.id,{:checked=>job.has_child?, :disabled=>true}%></td>
         <td>
-           <%= link_to t('.edit', :default =>  "Add Subtask"),
+          <%= link_to t('.edit', :default =>  "Add Subtask"),
                       new_job_path(:job_id=>job.id, :type_task=>job.type_task_id, :recurrency=>job.recurrency_id),
                        :class => 'btn btn-mini' %>
          
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_job_path(job), :class => 'btn btn-mini' %>
 
-          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+          <%= link_to t( '.destroy', :default => t("helpers.links.destroy")),
                       job_path(job),
                       :method => :delete,
                       :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
@@ -45,6 +65,7 @@
   </tbody>
 </table>
 </ul>
+
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_job_path,
             :class => 'btn btn-primary' %>
