@@ -17,7 +17,6 @@ class Job < ActiveRecord::Base
 
   def is_delete_possible?
     !has_child?
-    #if has child should not be possible delete
   end
 
   def validate_total_effort
