@@ -85,11 +85,17 @@ class JobsController < ApplicationController
   # DELETE /jobs/1.json
   def destroy
     @job = Job.find(params[:id])
-    @job.destroy
+    if @job.destroy
 
     respond_to do |format|
-      format.html { redirect_to jobs_url }
+      format.html { redirect_to jobs_url, notice: 'Job was successfully deleted.' }
       format.json { head :no_content }
+    end
+    else
+    respond_to do |format|
+      format.html { redirect_to jobs_url, alert: "Job can't be deleted." }
+      format.json { head :no_content }
+    end
     end
   end
 
