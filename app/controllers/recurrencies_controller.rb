@@ -3,6 +3,10 @@ class RecurrenciesController < ApplicationController
   # GET /recurrencies.json
   before_filter :authenticate_user!
   
+  add_breadcrumb 'Recurrencies', :recurrencies_path
+  add_breadcrumb 'Create a new recurrency', '', :only => [:new, :create]
+  add_breadcrumb 'Edit a recurrency', '', :only => [:edit, :update]
+
   def index
     @recurrencies = Recurrency.all
 

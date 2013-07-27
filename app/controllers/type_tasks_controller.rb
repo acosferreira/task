@@ -2,6 +2,11 @@ class TypeTasksController < ApplicationController
   # GET /type_tasks
   # GET /type_tasks.json
   before_filter :authenticate_user!
+
+  add_breadcrumb 'Type Tasks', :type_tasks_path
+  add_breadcrumb 'Create a new type_tasks', '', :only => [:new, :create]
+  add_breadcrumb 'Edit a type_tasks', '', :only => [:edit, :update]
+
   def index
     @type_tasks = TypeTask.all
 

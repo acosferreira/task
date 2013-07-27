@@ -3,6 +3,10 @@ class JobsController < ApplicationController
   # GET /jobs.json
   before_filter :authenticate_user!
   
+  add_breadcrumb 'Job', :jobs_path
+  add_breadcrumb 'Create a new job', '', :only => [:new, :create]
+  add_breadcrumb 'Edit a job', '', :only => [:edit, :update]
+
   def index
     @recurrencies = Recurrency.all
     @jobs = Job.where(conditions_to_collection)
