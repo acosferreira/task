@@ -13,9 +13,9 @@
   <dt><strong><%= model_class.human_attribute_name(:effort) %>:</strong></dt>
   <dd><%= @job.effort %></dd>
   <dt><strong><%= model_class.human_attribute_name(:recurrency_id) %>:</strong></dt>
-  <dd><%= @job.recurrency_id %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:status) %>:</strong></dt>
-  <dd><%= @job.status %></dd>
+  <dd><%= @job.recurrency.blank? ? "N.A." : @job.recurrency.name %></dd>
+  <dt><strong> Finalized?</strong></dt>
+  <dd><%= check_box "status", @job.id,{:checked=>@job.status, :disabled=>true} %></dd>
   <dt><strong><%= model_class.human_attribute_name(:job_id) %>:</strong></dt>
   <dd><%= @job.job_id %></dd>
   <dt><strong><%= model_class.human_attribute_name(:type_task_id) %>:</strong></dt>
