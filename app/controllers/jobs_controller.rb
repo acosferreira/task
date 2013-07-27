@@ -48,8 +48,6 @@ class JobsController < ApplicationController
   # POST /jobs
   # POST /jobs.json
   def create
-    require 'pry'
-    binding.pry
     @job = Job.new(params[:job])
 
     respond_to do |format|
