@@ -27,7 +27,7 @@ end
 	gem 'rspec-rails'
 	gem 'simplecov'
 
-
+gem 'rails-breadcrumbs'
 gem 'jquery-rails'
 
 # To use ActiveModel has_secure_password
