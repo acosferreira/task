@@ -11,9 +11,9 @@
   <![endif]-->
 </head>
 <body>
- <div class="container">
-             <%= breadcrumbs("=>") %>
-      </div>
+  
+
+
  <div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
       <div class="container">
@@ -33,6 +33,15 @@
   </div>
 
   <div class="container">
+    <% flash.each do |name, msg| %>
+  <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
+    <a class="close" data-dismiss="alert">×</a>
+    <%= msg if msg%>
+  </div>
+<% end %>
+    <div>
+     <%= breadcrumbs("=>") %>
+    </div>
     <div class="row">
       <div class="span9"><%= yield %></div>
       
