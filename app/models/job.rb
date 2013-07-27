@@ -57,5 +57,8 @@ class Job < ActiveRecord::Base
     Job.where("status = ? and estimated_date <= '#{Date.today}' and user_id= ?", false, user_id).sort_by(&:estimated_date)
   end
 
+  def self.from_user(user_id)
+    Job.where("user_id=? and job_id is null", user_id)
+  end
 
 end

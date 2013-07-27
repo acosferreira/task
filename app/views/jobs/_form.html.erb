@@ -5,8 +5,8 @@
   <%= f.input :estimated_date %>
   <%= f.input :effort, :hint=>"The effort is calculated in days" %>
   <%= f.association :recurrency %>
-  <%= f.input :status %>
-  <%= f.association :job %>
+  <%= f.input :status, :label=> "Finalized?" %>
+  <%= f.association :job, collection: Job.from_user(current_user.id)%>
   <%= f.association :type_task %>
   <%= f.input :user_id,  :as => :hidden %>
   <div class="form-actions">

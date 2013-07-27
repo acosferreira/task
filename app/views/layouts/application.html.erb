@@ -11,7 +11,7 @@
   <![endif]-->
 </head>
 <body>
- <div class="container"><%= breadcrumbs %>
+ <div class="container">
              <%= breadcrumbs("=>") %>
       </div>
  <div class="navbar navbar-fixed-top">
@@ -23,12 +23,13 @@
             <li><%= link_to "Jobs", jobs_path %></li>
             <li><%= link_to "Recurrencies", recurrencies_path %></li>
             <li><%= link_to "Type Tasks" ,type_tasks_path%></li>
-             <li><%= link_to "To Reminder", reminder_tasks_jobs_path, :method => :get %></li>
+            <li><%= link_to "To Reminder", reminder_tasks_jobs_path, :method => :get %></li>
+            <li> <%= "Logged in as #{current_user.email}" if current_user%></li>
             <li><%= link_to "Logout", destroy_user_session_path, :method=> :delete,:data =>  { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) } %> </li>
           </ul>
         </div>
       </div>
-    </div>
+          </div>
   </div>
 
   <div class="container">
