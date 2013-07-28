@@ -13,7 +13,7 @@ context "index" do
   before(:each) do
   	get :index
   end
-  it "should return list of tasks from user" do
+  it "should return list of recurrencies" do
   	assigns(:recurrencies).should_not==[]
   	assigns(:recurrencies).should == [@recurrency1,  @recurrency2]
   end
@@ -40,7 +40,7 @@ context "update" do
     assigns(:recurrency).name.should == "weekly"
   end
   it "should update item" do
-	  put :update, {:id => @recurrency1.id, :job => {:name=>nil}}
+	  put :update, {:id => @recurrency1.id, :recurrency => {:name=>nil}}
     @recurrency1.name.should_not be_nil
   end
 
@@ -61,7 +61,7 @@ context "delete" do
 end
 
 context "new" do
-  it "should create new instace from Job" do
+  it "should create new instace from Recurrency" do
     get :new, {}
     assigns(:recurrency).should be_a_new(Recurrency)
   end
@@ -75,7 +75,7 @@ context "create" do
   end
   it "should not create item" do
     expect {
-          post :create, {:job =>{:name=>nil} }
+          post :create, {:recurrency =>{:name=>nil} }
         }.to change(Recurrency, :count).by(0)
   end
 end

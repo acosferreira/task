@@ -38,12 +38,12 @@ end
 
 context "update" do
   it "should update item" do
-	put :update, {:id => @main.id, :job => {:name=>"task"}}
+	  put :update, {:id => @main.id, :job => {:name=>"task"}}
     assigns(:job).name.should == "task"
   end
   it "should update item" do
-	put :update, {:id => @main.id, :job => {:effort=>nil}}
-    flash[:alert].should == "Job can't be deleted."
+	  put :update, {:id => @main.id, :job => {:effort=>nil}}
+    @main.effort.should_not be_nil
   end
 
 
@@ -70,8 +70,24 @@ context "reminder tasks" do
  
 end
 
+context "new" do
+  it "should create new instace from Job" do
+    get :new, {}
+    assigns(:job).should be_a_new(Job)
+  end
+end
+
 context "create" do
-  it "should create item"
+  it "should create item" do
+    expect {
+          post :create, {:job =>{:name=>"task", :effort=>1, :estimated_date=> Date.today, :user_id=>@user.id} }
+        }.to change(Job, :count).by(1)
+  end
+  it "should not create item" do
+    expect {
+          post :create, {:job =>{:name=>"task", :effort=>nil, :estimated_date=> Date.today, :user_id=>@user.id} }
+        }.to change(Job, :count).by(0)
+  end
 end
 
 end

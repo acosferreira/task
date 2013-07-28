@@ -80,9 +80,18 @@ describe Job do
   	it "should return true to main" do
   		@main.status=true
   		@main.save
-		#@child.status.should be_true
-  	end
+		end
   end
+
+context "jobs from user" do
+  before(:each) do
+    @main = Job.create(:name=>'Job', :effort=>2, :estimated_date=> Date.today-1, :user_id=>1)
+    @child = Job.create(:name=>'Job child', :effort=>2, :estimated_date=> Date.today-1, :job_id=>@main.id,:user_id=>2)
+  end
+  it "should return the list of jobs from user" do
+    Job.from_user(1).should == [@main]
+  end
+end
 
 
 end
