@@ -81,9 +81,17 @@ class TypeTasksController < ApplicationController
     @type_task = TypeTask.find(params[:id])
     @type_task.destroy
 
+  if @type_task.destroy
+
     respond_to do |format|
-      format.html { redirect_to type_tasks_url }
+      format.html { redirect_to recurrencies_url, notice: 'Type task was successfully deleted.' }
       format.json { head :no_content }
+    end
+    else
+    respond_to do |format|
+      format.html { redirect_to recurrencies_url, alert: "Type task can't be deleted." }
+      format.json { head :no_content }
+    end
     end
   end
 end

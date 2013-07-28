@@ -79,11 +79,17 @@ class RecurrenciesController < ApplicationController
   # DELETE /recurrencies/1.json
   def destroy
     @recurrency = Recurrency.find(params[:id])
-    @recurrency.destroy
+    if @recurrency.destroy
 
     respond_to do |format|
-      format.html { redirect_to recurrencies_url }
+      format.html { redirect_to recurrencies_url, notice: 'Recurrency was successfully deleted.' }
       format.json { head :no_content }
+    end
+    else
+    respond_to do |format|
+      format.html { redirect_to recurrencies_url, alert: "Recurrency can't be deleted." }
+      format.json { head :no_content }
+    end
     end
   end
 end

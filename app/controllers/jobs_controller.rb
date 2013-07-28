@@ -53,7 +53,6 @@ class JobsController < ApplicationController
   # POST /jobs.json
   def create
     @job = Job.new(params[:job])
-
     respond_to do |format|
       if @job.save
         format.html { redirect_to @job, notice: 'Job was successfully created.' }
@@ -69,13 +68,12 @@ class JobsController < ApplicationController
   # PUT /jobs/1.json
   def update
     @job = Job.find(params[:id])
-
     respond_to do |format|
       if @job.update_attributes(params[:job])
         format.html { redirect_to @job, notice: 'Job was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render action: "edit" }
+        format.html { render action: "edit", alert: 'Job cant be updated.' }
         format.json { render json: @job.errors, status: :unprocessable_entity }
       end
     end
